@@ -14,16 +14,26 @@ public class PasswordValidatorTest {
     }
 
     @Test
-    public void testBadPassword(){
-        assertEquals(1, passwordValidator.validate("password"));
-        assertEquals(1, passwordValidator.validate("PASSWORD"));
-        assertEquals(1, passwordValidator.validate("PaSsWoRd"));
+    public void testWeakPassword(){
+        assertEquals(Validator.PasswordStrength.WEAK, passwordValidator.validate("password"));
+        assertEquals(Validator.PasswordStrength.WEAK, passwordValidator.validate("PASSWORD"));
+        assertEquals(Validator.PasswordStrength.WEAK, passwordValidator.validate("PaSsWoRd"));
+        assertEquals(Validator.PasswordStrength.WEAK, passwordValidator.validate("short"));
+        assertEquals(Validator.PasswordStrength.WEAK, passwordValidator.validate("h3h3"));
+        assertEquals(Validator.PasswordStrength.WEAK, passwordValidator.validate("shadow"));
     }
 
     @Test
-    public void testShortPassword(){
-        assertEquals(1, passwordValidator.validate("short"));
-        assertEquals(1, passwordValidator.validate("1"));
-        assertEquals(1, passwordValidator.validate(""));
+    public void testMediumPassword(){
+        assertEquals(Validator.PasswordStrength.MEDIUM, passwordValidator.validate("AbCd?"));
+        assertEquals(Validator.PasswordStrength.MEDIUM, passwordValidator.validate("Hunter2"));
+        assertEquals(Validator.PasswordStrength.MEDIUM, passwordValidator.validate("shadow5525"));
+    }
+
+    @Test
+    public void testStrongPassword(){
+        assertEquals(Validator.PasswordStrength.STRONG, passwordValidator.validate("Abcde123***?"));
+        assertEquals(Validator.PasswordStrength.STRONG, passwordValidator.validate("NewElderScrollsGamePls!$"));
+        assertEquals(Validator.PasswordStrength.STRONG, passwordValidator.validate("thisIs$trong4#"));
     }
 }
