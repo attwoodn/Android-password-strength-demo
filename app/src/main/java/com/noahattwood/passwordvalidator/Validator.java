@@ -10,9 +10,18 @@ public class Validator {
         STRONG(Color.GREEN);
 
         public final int colour;
+        private double strengthPercentage = 0.0;
 
         PasswordStrength(int colour){
             this.colour = colour;
+        }
+
+        public int getStrengthPercentage(){
+            return (int) (strengthPercentage * 100.0);
+        }
+
+        private void setStrengthPercentage(double strengthPercentage){
+            this.strengthPercentage = strengthPercentage;
         }
 
         /**
@@ -21,13 +30,17 @@ public class Validator {
          * @return WEAK, MEDIUM, or STRONG
          */
         public static PasswordStrength getStrength (double percentage){
+            PasswordStrength strength;
             if (percentage <= 0.5){
-                return WEAK;
+                strength = WEAK;
             } else if (percentage <= 0.75){
-                return MEDIUM;
+                strength = MEDIUM;
             } else {
-                return STRONG;
+                strength = STRONG;
             }
+
+            strength.setStrengthPercentage(percentage);
+            return strength;
         }
     }
 
