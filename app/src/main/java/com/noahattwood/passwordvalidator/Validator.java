@@ -6,7 +6,7 @@ public class Validator {
 
     public enum PasswordStrength {
         WEAK(Color.RED),
-        MEDIUM(Color.YELLOW),
+        MEDIUM(Color.rgb(255,187,0)), // Orange
         STRONG(Color.GREEN);
 
         public final int colour;

@@ -28,10 +28,13 @@ public class MainActivity extends AppCompatActivity {
         String password = passwordTextField.getText().toString();
         Validator.PasswordStrength passwordStrength = passwordValidator.validate(password);
 
+        // Display the password strength's string representation
         passwordStrengthTextField.setText(passwordStrength.toString());
 
         progressBar.setProgress(passwordStrength.getStrengthPercentage());
 
-
+        // Change color of the progress bar based on the strength of the password.
+        // This line of code was influenced by the following answer on stack overflow: https://stackoverflow.com/a/15809803
+        progressBar.getProgressDrawable().setColorFilter(passwordStrength.colour, PorterDuff.Mode.MULTIPLY);
     }
 }
